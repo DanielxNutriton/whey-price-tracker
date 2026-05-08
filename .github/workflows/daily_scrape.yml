@@ -1,70 +1,19 @@
-name: Daily Whey Price Scraper
+name: Deploy Price Dashboard
 
 on:
-  schedule:
-    - cron: '0 8 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/index.html'
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
 jobs:
-  scrape:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          playwright install chromium
-          playwright install-deps chromium
-
-      - name: Restore price database
-        uses: actions/cache@v4
-        with:
-          path: data/prices.db
-          key: prices-db-${{ github.run_id }}
-          restore-keys: |
-            prices-db-
-
-      - name: Run scraper & generate report
-        env:
-          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-        run: python main.py
-
-      - name: Prepare dashboard for Pages
-        run: |
-          mkdir -p docs
-          cp reports/latest.html docs/index.html
-
-      - name: Commit updated data and dashboard
-        run: |
-          git config user.name "whey-tracker[bot]"
-          git config user.email "whey-tracker@users.noreply.github.com"
-          git add data/prices.db reports/latest.html docs/index.html || true
-          git diff --cached --quiet || git commit -m "chore: daily price snapshot $(date -u +'%Y-%m-%d')"
-          git push || true
-
-      - name: Upload daily report artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: price-report-${{ github.run_number }}
-          path: reports/latest.html
-          retention-days: 90
-
   deploy:
-    needs: scrape
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -73,11 +22,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          ref: main
-
-      - name: Pull latest changes
-        run: git pull origin main
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
