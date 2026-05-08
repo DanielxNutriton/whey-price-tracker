@@ -1,0 +1,56 @@
+name: Daily Whey Price Scraper
+
+on:
+  schedule:
+    # Runs at 08:00 UTC every day (09:00 BST / 08:00 GMT)
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+    # Allows manual trigger from the GitHub Actions tab
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Restore the SQLite database from the previous run
+      - name: Restore price database
+        uses: actions/cache@v4
+        with:
+          path: data/prices.db
+          key: prices-db-${{ github.run_id }}
+          restore-keys: |
+            prices-db-
+
+      - name: Run scraper & generate report
+        env:
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        run: python main.py
+
+      # Upload report as a GitHub Actions artifact (downloadable for 30 days)
+      - name: Upload daily report
+        uses: actions/upload-artifact@v4
+        with:
+          name: price-report-${{ github.run_number }}
+          path: reports/
+          retention-days: 30
+
+      # Commit the updated database and report back to the repo
+      - name: Commit updated data
+        run: |
+          git config user.name "whey-tracker[bot]"
+          git config user.email "whey-tracker@nutritionx"
+          git add data/prices.db reports/latest.html || true
+          git diff --cached --quiet || git commit -m "chore: daily price snapshot $(date -u +'%Y-%m-%d')"
+          git push || true

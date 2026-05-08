@@ -1,0 +1,186 @@
+======================================================================
+BIG WHEY TRACKER — DIAGNOSTIC OUTPUT
+Paste this entire file back to Claude
+======================================================================
+
+────────────────────────────────────────────────────────────
+BRAND: Nutrition X 900g
+URL:   https://www.nutritionx.co.uk/big-whey-protein-powder-900g
+HTTP:  200  (370,245 bytes)
+Title: Big Whey High Protein Powder (900g Tub) | Nutrition X
+  META [product:price:amount]: 41.99
+  JSON-LD offers.price: None
+  SELECTOR [.price]: '£41.99'
+  SELECTOR [.product-info-price .price]: '£41.99'
+  SELECTOR [[data-price-type='finalPrice']]: '£41.99'
+  SCRIPT PRICES:
+  script[4] type='text/x-magento-init' id='': ['£34.99']
+  script[53] type='' id='': ['£41.99', '£41.99', '£41.99']
+  script[69] type='text/x-magento-init' id='': ['£41.99', '£41.99', '£41.99', '£41.99']
+  script[70] type='application/ld+json' id='': ['£41.99', '£41.99', '£41.99', '£41.99']
+  script[95] type='text/x-magento-init' id='': ['£41.99', '£41.99', '£41.99', '£41.99']
+  script[102] type='' id='': ['£41.99']
+  LARGEST SCRIPT (7,930 chars), first 400 chars:
+         new ReviewsWidget(('#ReviewsWidget'), {                 store: 'www.nutritionx.co.uk',         widget: 'polaris',                  options: {           types: 'product_review,questions',           lang: 'en',                     layout: '',                     per_page: 15,     
+
+────────────────────────────────────────────────────────────
+BRAND: Kinetica 1kg
+URL:   https://uk.kineticasports.com/products/whey-protein-powder-vanilla-1kg
+HTTP:  200  (463,529 bytes)
+Title: Whey Protein Vanilla 1kg – 33 Servings | Kinetica Sports UK
+  META [og:price:amount]: 44.99
+  JSON-LD offers.price: 44.99
+  SELECTOR [.price-item--regular]: '£44.99'
+  SELECTOR [.price-item--sale]: '£44.99'
+  SCRIPT PRICES:
+  script[41] type='' id='': ['£44.99(pence)']
+  script[48] type='' id='': ['£44.99(pence)', '£44.99(pence)', '£40.49(pence)', '£40.49(pence)']
+  script[75] type='module' id='': ['£44.99', '£44.99']
+  script[81] type='' id='': ['£44.99(pence)', '£44.99(pence)', '£40.49(pence)', '£40.49(pence)']
+  script[106] type='' id='': ['£44.99(pence)']
+  script[107] type='' id='': ['£44.99', '£44.99']
+  LARGEST SCRIPT (17,863 chars), first 400 chars:
+    (function () {   function ensureScriptOnce(src, id) {    if (id && document.getElementById(id)) return;    if (id) {     var existing = document.querySelector('script[src="' + src + '"]');     if (existing) return;    }    var script = document.createElement('script');    if (id) script.id = id;    script.setAttribute('src', src);    document.body.appendChild(scri
+
+────────────────────────────────────────────────────────────
+BRAND: ON 900g
+URL:   https://www.optimumnutrition.com/en-gb/products/gold-standard-100-whey-protein-powder-eu?variant=52105832300811
+HTTP:  200  (1,906,172 bytes)
+Title: Gold Standard 100% Whey Protein Powder | Optimum Nutrition UK
+  META [product:price:amount]: 40.00
+  JSON-LD offers.price: 40.0
+  JSON-LD offers.price: 18.5
+  SELECTORS: none matched
+  SCRIPT PRICES:
+  script[2] type='application/ld+json' id='': ['£40.00']
+  script[43] type='' id='': ['£18.50(pence)', '£18.50(pence)', '£25.00(pence)', '£25.00(pence)']
+  script[55] type='' id='': ['£25.00(pence)', '£30.00(pence)', '£40.00(pence)', '£80.00(pence)']
+  script[56] type='' id='': ['£40.00', '£40.00']
+  script[62] type='' id='': ['£40.00', '£18.50']
+  script[65] type='application/json' id='': ['£40.00(pence)', '£40.00(pence)']
+  LARGEST SCRIPT (192,894 chars), first 400 chars:
+  {"userData":{"shopName":"bjbebq-x1.myshopify.com","storefrontAccessToken":"77d97e52b6c3d184a6d186748954677f","countryCode":"IE","countryName":"Ireland","currency":"EUR","currencyInfo":{"code":"EUR","symbol":"€","thousandsSeparator":" ","decimalSeparator":",","symbolOnLeft":false,"spaceBetweenAmountAndSymbol":true,"decimalDigits":2},"customSettings":{"initialModalPopupCnt":0,"disableCartSettings":f
+
+────────────────────────────────────────────────────────────
+BRAND: Applied 2kg
+URL:   https://appliednutrition.uk/products/critical-whey?variant=55037133029751
+HTTP:  200  (2,109,667 bytes)
+Title: Critical Whey Protein Powder | Applied Nutrition UK
+ – Applied Nutriti
+  META [og:price:amount]: 8.95
+  JSON-LD offers.price: 59.95
+  SELECTOR [.price-item--regular]: '£59.95 GBP'
+  SELECTOR [.price-item--sale]: '£59.95 GBP'
+  SCRIPT PRICES:
+  script[64] type='' id='': ['£59.95(pence)', '£29.95(pence)', '£8.95(pence)', '£59.95(pence)']
+  script[65] type='' id='': ['£59.95', '£59.95']
+  script[74] type='text/javascript' id='': ['£8.95(pence)', '£59.95(pence)', '£47.96(pence)', '£47.96(pence)']
+  script[79] type='application/json' id='variant-data-template--28297599287671__main': ['£59.95(pence)', '£47.96(pence)', '£47.96(pence)', '£59.95(pence)']
+  script[89] type='application/ld+json' id='': ['£59.95', '£29.95', '£59.95', '£29.95']
+  script[102] type='text/javascript' id='': ['£8.95(pence)', '£59.95(pence)', '£47.96(pence)', '£47.96(pence)']
+  LARGEST SCRIPT (335,820 chars), first 400 chars:
+     (function () {     const queryString = window.location.search;     const urlParams = new URLSearchParams(queryString);     const debug = urlParams.get('debug') === 'true';     let insertedCustomCodeFiles = [];     let theLatestVariantId = null;     let setActiveMedia = false;     let kachingVariantId = null;     let latestMediaIdsToHide = [];     let ignor
+
+────────────────────────────────────────────────────────────
+BRAND: USN 908g
+URL:   https://uk.usn.global/products/blue-lab-whey-protein?variant=32385253408827
+HTTP:  200  (972,395 bytes)
+Title: BlueLab 100% Whey Protein | USN UK
+  META [product:price:amount]: 36.0
+  JSON-LD offers.price: 18.0
+  SELECTOR [.price-item--regular]: '£36.00£36.00'
+  SELECTOR [.price-item--sale]: '£36.00'
+  SELECTOR [[data-price]]: '£36.00£36.00'
+  SCRIPT PRICES:
+  script[0] type='' id='': ['£18.00(pence)', '£18.00(pence)', '£36.00(pence)', '£67.50(pence)']
+  script[42] type='application/ld+json' id='yoast-schema-graph': ['£67.50', '£36.00', '£67.50', '£67.50']
+  script[47] type='' id='': ['£18.00(pence)', '£18.00(pence)', '£36.00(pence)', '£67.50(pence)']
+  script[48] type='' id='': ['£36.00', '£36.00']
+  script[55] type='application/json' id='': ['£18.00(pence)', '£18.00(pence)', '£36.00(pence)', '£67.50(pence)']
+  script[60] type='application/ld+json' id='': ['£18.00']
+  LARGEST SCRIPT (89,293 chars), first 400 chars:
+     if (typeof Shopify === "undefined") window.Shopify = {};   Shopify.cartItems = [];   Shopify.current_product = {};   Shopify.current_collection = {};   Shopify.products = {};   //cart item      // current product or collection   Shopify.current_product = {...{"id":4585249931323,"title":"BlueLab® 100% Whey Protein","handle":"blue-lab-whey-protein","description":"\u003cp\u003e
+
+────────────────────────────────────────────────────────────
+BRAND: Soccer Supp 1kg
+URL:   https://www.soccersupplement.com/products/new-whey-vanilla1kg
+HTTP:  200  (240,965 bytes)
+Title: New Whey90 - Vanilla
+– Soccer Supplement
+  JSON-LD offers.price: 41.95
+  SELECTOR [.product__price]: '£41.95'
+  SELECTOR [[data-product-price]]: '£41.95'
+  SELECTOR [span.money]: '£0.00'
+  SCRIPT PRICES:
+  script[35] type='' id='': ['£41.95(pence)', '£41.95(pence)', '£35.66(pence)', '£35.66(pence)']
+  script[40] type='' id='': ['£41.95(pence)', '£41.95(pence)', '£35.66(pence)', '£35.66(pence)']
+  script[62] type='' id='': ['£41.95(pence)']
+  script[63] type='' id='': ['£41.95', '£41.95']
+  script[69] type='application/ld+json' id='': ['£41.95']
+  LARGEST SCRIPT (12,626 chars), first 400 chars:
+  (function(){var wpmLoader=function(){"use strict";return function(e,d,r,n){var o=arguments.length>4&&void 0!==arguments[4]?arguments[4]:{};if(!Boolean(null==(i=null==(a=window.Shopify)?void 0:a.analytics)?void 0:i.replayQueue)){var a,i;window.Shopify=window.Shopify||{};var t=window.Shopify;t.analytics=t.analytics||{};var s=t.analytics;s.replayQueue=[],s.publish=function(e,d,r){return s.replayQueue
+
+────────────────────────────────────────────────────────────
+BRAND: Healthspan 750g
+URL:   https://www.healthspanelite.co.uk/elite-all-blacks-ultimate-whey-protein-blend/
+HTTP:  200  (670,378 bytes)
+Title: All Blacks Ultimate Whey Protein Blend
+  JSON-LD offers.price: 33.990000
+  SELECTORS: none matched
+  SCRIPT PRICES:
+  script[38] type='application/ld+json' id='': ['£33.99']
+  LARGEST SCRIPT (94,619 chars), first 400 chars:
+  ##var ProductRewardPoints = {"DomainNameID":1,"PriceListID":59}## ##var Translations = {"OneTime":"One-time","Subscribe":"Subscribe","Off":"off","OneTimePurchase":"One Time Purchase","SubscribeAndSave":"Subscribe & Save","StockTrueBtnText":"Add To Basket","StockFalseBtnText":"Out of Stock","AddToRepeatOrdersBtnText":"Add to your repeat orders list","YourNextOrder":"Your Next Order","Quantity":"Qu
+
+────────────────────────────────────────────────────────────
+BRAND: SIS 1.35kg
+URL:   https://www.scienceinsport.com/shop-by-need/recovery/rego-whey-powder?sku=131925
+HTTP:  200  (391,876 bytes)
+Title: Rego Whey Protein   | Science In Sport
+  META [product:price:amount]: 25.00
+  SELECTOR [.price]: '£25.00'
+  SELECTOR [.product-info-price .price]: '£25.00'
+  SELECTOR [[data-price-type='finalPrice']]: '£25.00'
+  SCRIPT PRICES:
+  script[16] type='application/ld+json' id='': ['£60.00']
+  script[51] type='text/x-magento-init' id='': ['£60.00', '£25.00', '£60.00', '£25.00']
+  script[59] type='' id='': ['£60.00', '£25.00', '£60.00', '£25.00']
+  script[70] type='text/x-magento-init' id='': ['£25.00', '£25.00', '£25.00', '£25.00']
+  LARGEST SCRIPT (64,825 chars), first 400 chars:
+  (window.NREUM||(NREUM={})).init={privacy:{cookies_enabled:false},ajax:{deny_list:["bam.nr-data.net"]},feature_flags:["soft_nav"]};(window.NREUM||(NREUM={})).loader_config={xpid:"VgICVlNUABABXFZSBwIAUlY=",licenseKey:"35510619da",applicationID:"187003742",browserID:"187284425"};;/*! For license information please see nr-loader-full-1.314.0.min.js.LICENSE.txt */ (()=>{var e,t,r={384:(e,t,r)=>{"use st
+
+────────────────────────────────────────────────────────────
+BRAND: Myprotein 900g
+URL:   https://www.myprotein.com/p/sports-nutrition/impact-whey-protein-powder/10530943/?variation=17712277
+HTTP:  200  (1,957,213 bytes)
+Title: Impact Whey Protein Powder | MYPROTEINâ¢
+  SELECTOR [.price]: 'Â£27.99â\x80\x8e'
+  SCRIPT PRICES:
+  script[8] type='application/ld+json' id='': ['£126.49', '£126.49', '£126.49', '£109.45']
+  LARGEST SCRIPT (289,496 chars), first 400 chars:
+  {  "@context": "https://schema.org/",  "@graph": [   {    "@type": "ProductGroup",    "name": "Impact Whey Protein Powder",    "productGroupID": "10530943",    "description": " Macros that make sense. \n Every scoop of Impact Whey Protein is engineered to deliver exactly what your body needs â and nothing it doesn't. With up to 23g of high-quality protein and just 114 calories 
+
+────────────────────────────────────────────────────────────
+BRAND: Bulk 1kg
+URL:   https://www.bulk.com/uk/products/pure-whey-protein/bpb-wpc8-0000
+HTTP:  200  (113,350 bytes)
+Title: Pure Whey Protein Powder | #1 Bestselling Quality Protein | Bulk™
+  SELECTORS: none matched
+  SCRIPT PRICES:
+  script[0] type='application/ld+json' id='': ['£14.99', '£21.99', '£24.99', '£38.99']
+  LARGEST SCRIPT (61,929 chars), first 400 chars:
+  {  "@graph": [   {    "@type": "WebPage",    "name": "Pure Whey Protein Powder | #1 Bestselling Quality Protein | Bulk™",    "url": "https://www.bulk.com/uk/products/pure-whey-protein/bpb-wpc8-0000"   },   {    "@type": "Product",    "sku": "BPB-WPC8-0000",    "name": "Pure Whey Protein",    "image": "https://www.bulk.com/media/catalog/product/P/U/PURE_WHEY_PROETIN_23G_
+
+────────────────────────────────────────────────────────────
+BRAND: TPW 1kg
+URL:   https://www.theproteinworks.com/whey-protein-80-concentrate
+HTTP:  200  (369,077 bytes)
+Title: Whey Protein 80 - BLACK Innovation - Award-Winning Whey Protein | Prot
+  SELECTOR [[itemprop='price']]: '19.19'
+  SCRIPT PRICES: none found
+  LARGEST SCRIPT (229,570 chars), first 400 chars:
+  {"props":{"pageProps":{"layout":"OneCol","loadedData":true,"product_content":{"product_page_bullets":"Winner of the coveted \"Best Protein Award\", Whey Protein 80 is the gold standard in premium protein shakes, made simply with 100% pure whey protein concentrate.\u003cbr /\u003e\r\n\u003cbr /\u003e\r\nIts five-star rating comes from its ultra-smooth texture, huge range of flavours and instant mix
+
+======================================================================
+END OF DIAGNOSTIC
+======================================================================

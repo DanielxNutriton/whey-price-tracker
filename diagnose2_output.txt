@@ -1,0 +1,64 @@
+============================================================
+1. MYPROTEIN 2.7kg
+   Goal: find £77.49 — currently returning £27.99 (900g price)
+============================================================
+HTTP: 200
+Title: Impact Whey Protein Powder | MYPROTEINâ¢
+Selector [.price]: 'Â£27.99â\x80\x8e'
+Prices found in scripts:
+  script[8]: ['126.49', '109.45', '66.49', '27.99', '24.22', '25.49']
+  script[37]: ['23.49', '31.49', '29.99', '39.99', '25.99', '34.99']
+  script[47]: ['126.49', '66.49', '27.99', '25.49', '23.49', '52.99']
+  script[49]: ['27.99', '24.22', '126.49', '66.49', '25.49', '23.49']
+  script[69]: ['23.49', '31.49', '29.99', '39.99', '25.99', '34.99']
+  script[89]: ['27.99', '24.22', '126.49', '66.49', '25.49', '23.49']
+Searching for 2.7kg / 77.49 in page source:
+  Found 2.7 or 77.49 in page source ✅
+  Context: '2.7kg - 90servings Chocolate Smooth",'
+  Context: '77.49,'
+
+============================================================
+2. APPLIED NUTRITION 825g
+   Goal: find £29.95 — currently returning £59.95 (2kg price)
+============================================================
+HTTP: 200
+JSON-LD offers: [{"@type": "Offer", "sku": "CW2C", "gtin13": 5056555204689, "availability": "http://schema.org/InStock", "price": 59.95, "priceCurrency": "GBP", "url": "https://appliednutrition.uk/products/critical-w
+Meta [og:price:amount]: 8.95
+Searching for 29.95 / 825g in page:
+  Found 29.95 ✅
+  Context: 'Informed-Sport Tested \\/ 2kg"},{"price":{"amount":29.95,"currencyCode":"GBP"},"product":{"title":"Critica'
+Shopify variants in scripts:
+  script[64] variants (id, price_pence):
+    id=55037133029751  price=£59.95
+    id=55702274310519  price=£29.95
+    id=56469861040503  price=£8.95
+    id=42903054090472  price=£59.95
+    id=55702274408823  price=£29.95
+    id=56469861106039  price=£8.95
+
+============================================================
+3. SIS 450g
+   Goal: find £25.00 — currently returning £60.00 (1.35kg price)
+============================================================
+HTTP: 200
+Meta [product:price:amount]: 25.00
+Magento price config in scripts:
+  Found price config in script[51] (21138 chars)
+  First 300 chars: '\n    {\n        "[data-role=swatch-options]": {\n            "Magento_Swatches/js/swatch-renderer": {\n                "jsonConfig": {"attributes":{"175":{"id":"175","code":"flavour","label":"Flavour","options":[{"id":"72","label":"Strawberry","products":["8075","8084"]},{"id":"57","label":"Chocolate",'
+Searching for 25.00 in page:
+  Found 25.00 ✅
+
+============================================================
+4. THE PROTEIN WORKS — size selection
+   Goal: get correct price per size, currently all return £19.19
+============================================================
+HTTP: 200
+Title: Whey Protein 80 - BLACK Innovation - Award-Winning Whey Protein | Prot
+itemprop=price: <meta content="19.19" itemprop="price"/>
+Selector [button[class*='size']]: 1 found
+  text='500g' attrs={'type': 'button', 'name': 'attributeMTc5', 'value': 'Y29uZmlndXJhYmxlLzE3OS8xNjc='}
+Size-price data in scripts:
+
+============================================================
+END — paste this output back to Claude
+============================================================
