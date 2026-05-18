@@ -42,54 +42,52 @@ def _diff_label(pps: float, your_pps_map: dict, size: str) -> str:
 
 def _build_weekly_chart_data(rows: list) -> str:
     """
-    Build price-per-serving chart data per brand.
-    Uses daily data for the last 14 days when history is short,
-    falling back to the latest known price when no history exists.
+    Build price-per-serving chart using actual scrape dates.
+    One data point per scrape run — no gap filling.
+    Shows last 30 days of actual scrapes.
     """
     brands = sorted(set(r["brand"] for r in rows))
-    now = datetime.now(timezone.utc)
 
-    # Build daily labels for last 14 days
-    days = []
-    for i in range(13, -1, -1):
-        d = now - timedelta(days=i)
-        days.append({"label": d.strftime("%-d %b"), "date": d})
-
-    brand_data = {}
+    # Get all unique scrape dates across all products
+    all_dates = set()
+    brand_history = {}
     for brand in brands:
         brand_rows = [r for r in rows if r["brand"] == brand]
+        brand_history[brand] = {}
+        for r in brand_rows:
+            hist = get_price_history(r["brand"], r["product"], r["size"], days=30)
+            for h in hist:
+                try:
+                    scraped = datetime.fromisoformat(h["scraped_at"].replace("Z", "+00:00"))
+                    date_key = scraped.strftime("%Y-%m-%d")
+                    all_dates.add(date_key)
+                    if date_key not in brand_history[brand]:
+                        brand_history[brand][date_key] = []
+                    if h["price_per_srv"]:
+                        brand_history[brand][date_key].append(h["price_per_srv"])
+                except Exception:
+                    continue
 
-        # Get latest pps as fallback
-        latest_pps_vals = [r["price_per_srv"] for r in brand_rows if r["price_per_srv"]]
-        fallback_pps = round(sum(latest_pps_vals) / len(latest_pps_vals), 3) if latest_pps_vals else None
+    # Sort dates
+    sorted_dates = sorted(all_dates)
+    labels = [datetime.strptime(d, "%Y-%m-%d").strftime("%-d %b") for d in sorted_dates]
 
-        daily_avgs = []
-        for day_info in days:
-            day_start = day_info["date"].replace(hour=0, minute=0, second=0, microsecond=0)
-            day_end = day_start + timedelta(days=1)
-            day_prices = []
-
-            for r in brand_rows:
-                hist = get_price_history(r["brand"], r["product"], r["size"], days=20)
-                for h in hist:
-                    try:
-                        scraped = datetime.fromisoformat(h["scraped_at"].replace("Z", "+00:00"))
-                        if scraped.tzinfo is None:
-                            scraped = scraped.replace(tzinfo=timezone.utc)
-                    except Exception:
-                        continue
-                    if day_start <= scraped < day_end and h["price_per_srv"]:
-                        day_prices.append(h["price_per_srv"])
-
-            if day_prices:
-                daily_avgs.append(round(sum(day_prices) / len(day_prices), 3))
+    # Build per-brand data aligned to dates
+    brand_data = {}
+    for brand in brands:
+        series = []
+        for date_key in sorted_dates:
+            prices = brand_history[brand].get(date_key, [])
+            if prices:
+                series.append(round(sum(prices) / len(prices), 3))
             else:
-                daily_avgs.append(fallback_pps)
-
-        brand_data[brand] = daily_avgs
+                # Use latest known price for days this brand wasn't scraped
+                latest = [r["price_per_srv"] for r in rows if r["brand"] == brand and r["price_per_srv"]]
+                series.append(round(sum(latest) / len(latest), 3) if latest else None)
+        brand_data[brand] = series
 
     return json.dumps({
-        "labels": [d["label"] for d in days],
+        "labels": labels,
         "brands": brands,
         "data": brand_data,
     })
