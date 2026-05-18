@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Big Whey Price Intelligence — 18 May 2026 08:12 UTC</title>
+<title>Big Whey Price Intelligence — 12 May 2026 09:34 UTC</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: system-ui, -apple-system, sans-serif; background: #f5f5f3; color: #1a1a1a; font-size: 14px; }
-  .wrap { max-width: 1200px; margin: 0 auto; padding: 24px 16px; }
+  .wrap { max-width: 1300px; margin: 0 auto; padding: 24px 16px; }
   h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
   .sub { color: #666; font-size: 13px; margin-bottom: 24px; }
   .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
@@ -15,40 +16,48 @@
   .metric .label { font-size: 12px; color: #888; margin-bottom: 6px; text-transform: uppercase; letter-spacing: .04em; }
   .metric .value { font-size: 26px; font-weight: 600; }
   .metric .hint { font-size: 12px; color: #666; margin-top: 4px; }
-  .hint.good { color: #2d7a0f; }
-  .hint.warn { color: #854F0B; }
-  h2 { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+  .hint.good { color: #2d7a0f; } .hint.warn { color: #854F0B; }
+  h2 { font-size: 16px; font-weight: 600; margin-bottom: 12px; margin-top: 8px; }
   table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; border: 1px solid #e5e5e5; margin-bottom: 28px; }
-  th { background: #f8f8f6; padding: 10px 12px; text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: #666; border-bottom: 1px solid #e5e5e5; }
-  td { padding: 11px 12px; border-bottom: 1px solid #f0f0ee; }
+  th { background: #f8f8f6; padding: 10px 12px; text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: #666; border-bottom: 1px solid #e5e5e5; white-space: nowrap; }
+  td { padding: 10px 12px; border-bottom: 1px solid #f0f0ee; }
   tr:last-child td { border-bottom: none; }
   tr.own { background: #f0f5ff; }
   tr.own strong { color: #185FA5; }
-  td.best { color: #2d7a0f; font-weight: 600; }
-  td.high { color: #a32d2d; }
+  /* Price per serving colour coding */
+  td.pps-you   { font-weight: 700; color: #185FA5; }
+  td.pps-cheaper { font-weight: 600; color: #a32d2d; background: #ffeded; }
+  td.pps-dearer  { font-weight: 600; color: #2d7a0f; background: #edf7ed; }
   td.na { color: #bbb; }
   td.diff { font-size: 12px; color: #666; }
   td.ts { font-size: 11px; color: #bbb; }
+  td.sale { color: #2d7a0f; font-size: 12px; font-weight: 500; }
+  .legend-note { font-size: 12px; margin-bottom: 12px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .legend-note span { display: inline-flex; align-items: center; gap: 6px; }
+  .swatch { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
   .badge-rise { background: #ffeded; color: #a32d2d; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
   .badge-drop { background: #edf7ed; color: #2d7a0f; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
   .badge-desc { background: #fff8e1; color: #854F0B; padding: 2px 8px; border-radius: 4px; font-size: 12px; }
   .badge-warn { background: #fff3cd; color: #664d03; padding: 2px 8px; border-radius: 4px; font-size: 12px; }
+  .chart-card { background: #fff; border-radius: 10px; border: 1px solid #e5e5e5; padding: 20px; margin-bottom: 28px; }
+  .chart-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .brand-btn { font-size: 12px; padding: 4px 12px; border-radius: 99px; border: 2px solid transparent; cursor: pointer; font-weight: 500; opacity: 0.45; transition: opacity .15s; }
+  .brand-btn.active { opacity: 1; }
+  .chart-wrap { position: relative; height: 320px; }
   .footer { font-size: 12px; color: #aaa; text-align: center; margin-top: 24px; }
-  @media (max-width: 700px) {
-    .metrics { grid-template-columns: 1fr 1fr; }
-  }
+  @media (max-width: 700px) { .metrics { grid-template-columns: 1fr 1fr; } }
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>Big Whey — Competitor Price Intelligence</h1>
-  <p class="sub">Generated 18 May 2026 08:12 UTC · Prices scraped from brand websites · 30g serving baseline</p>
+  <p class="sub">Generated 12 May 2026 09:34 UTC · Prices scraped from brand websites · 30g serving baseline</p>
 
   <div class="metrics">
     <div class="metric">
       <div class="label">Your 900g £/serving</div>
       <div class="value">£1.40</div>
-      <div class="hint">£41.99</div>
+      <div class="hint">£1.10 cheapest across your sizes</div>
     </div>
     <div class="metric">
       <div class="label">Your 1.8kg £/serving</div>
@@ -56,85 +65,36 @@
     </div>
     <div class="metric">
       <div class="label">Rival avg £/serving</div>
-      <div class="value">£1.11</div>
+      <div class="value">£1.13</div>
       <div class="hint warn">
         ↑ Your 900g is above avg
       </div>
     </div>
     <div class="metric">
       <div class="label">Changes (7 days)</div>
-      <div class="value">7</div>
-      <div class="hint warn">7 price · 0 description</div>
+      <div class="value">0</div>
+      <div class="hint ">0 price · 0 description</div>
     </div>
   </div>
 
   <h2>Recent alerts (last 7 days)</h2>
   <table>
-    <thead>
-      <tr>
-        <th>Detected</th><th>Brand</th><th>Size</th><th>Type</th><th>Previous</th><th>New</th>
-      </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td>2026-05-15 13:20</td>
-      <td>The Protein Works</td>
-      <td>4kg</td>
-      <td><span class="badge-drop">▼ 25.5%</span></td>
-      <td>£19.19</td>
-      <td>£14.29</td>
-    </tr>
-    <tr>
-      <td>2026-05-15 13:20</td>
-      <td>The Protein Works</td>
-      <td>2kg</td>
-      <td><span class="badge-drop">▼ 25.5%</span></td>
-      <td>£19.19</td>
-      <td>£14.29</td>
-    </tr>
-    <tr>
-      <td>2026-05-15 13:20</td>
-      <td>The Protein Works</td>
-      <td>1kg</td>
-      <td><span class="badge-drop">▼ 25.5%</span></td>
-      <td>£19.19</td>
-      <td>£14.29</td>
-    </tr>
-    <tr>
-      <td>2026-05-15 13:20</td>
-      <td>The Protein Works</td>
-      <td>500g</td>
-      <td><span class="badge-drop">▼ 25.5%</span></td>
-      <td>£19.19</td>
-      <td>£14.29</td>
-    </tr>
-    <tr>
-      <td>2026-05-14 08:29</td>
-      <td>Myprotein</td>
-      <td>2.7kg</td>
-      <td><span class="badge-drop">▼ 6.5%</span></td>
-      <td>£77.49</td>
-      <td>£72.49</td>
-    </tr>
-    <tr>
-      <td>2026-05-14 08:29</td>
-      <td>Myprotein</td>
-      <td>900g</td>
-      <td><span class="badge-drop">▼ 3.6%</span></td>
-      <td>£27.99</td>
-      <td>£26.99</td>
-    </tr>
-    <tr>
-      <td>2026-05-14 08:28</td>
-      <td>Myprotein</td>
-      <td>450g</td>
-      <td><span class="badge-drop">▼ 5.9%</span></td>
-      <td>£16.99</td>
-      <td>£15.99</td>
-    </tr></tbody>
+    <thead><tr><th>Detected</th><th>Brand</th><th>Size</th><th>Type</th><th>Previous</th><th>New</th></tr></thead>
+    <tbody><tr><td colspan='6' style='color:#888;text-align:center'>No changes detected in the last 7 days</td></tr></tbody>
   </table>
 
+  <h2>Weekly average £/serving by brand</h2>
+  <div class="chart-card">
+    <div class="chart-controls" id="brand-btns"></div>
+    <div class="chart-wrap"><canvas id="weeklyChart"></canvas></div>
+  </div>
+
   <h2>Live price comparison</h2>
+  <div class="legend-note">
+    <span><span class="swatch" style="background:#185FA5"></span> Your products (blue)</span>
+    <span><span class="swatch" style="background:#edf7ed;border:1px solid #2d7a0f"></span> <b style="color:#2d7a0f">Green</b> = cheaper than your lowest £/serving (good — rivals undercut you)</span>
+    <span><span class="swatch" style="background:#ffeded;border:1px solid #a32d2d"></span> <b style="color:#a32d2d">Red</b> = more expensive than your lowest (good — you're the better value)</span>
+  </div>
   <table>
     <thead>
       <tr>
@@ -151,11 +111,11 @@
       <td>£59.95</td>
       <td>61</td>
       <td>24.0g</td>
-      <td>£0.983</td>
+      <td class="pps-cheaper">£0.983</td>
       <td>£4.09</td>
       <td class="na">—</td>
       <td class="diff">£0.12 cheaper/srv</td>
-      <td class="ts">2026-05-18</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Applied Nutrition</strong></td>
@@ -164,11 +124,11 @@
       <td>£29.95</td>
       <td>25</td>
       <td>24.0g</td>
-      <td>£1.198</td>
+      <td class="pps-dearer">£1.198</td>
       <td>£4.99</td>
       <td class="na">—</td>
-      <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">£0.20 cheaper/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Bulk</strong></td>
@@ -177,11 +137,11 @@
       <td>£24.99</td>
       <td>31</td>
       <td>23.0g</td>
-      <td>£0.806</td>
+      <td class="pps-cheaper">£0.806</td>
       <td>£3.50</td>
       <td class="na">—</td>
       <td class="diff">£0.59 cheaper/srv</td>
-      <td class="ts">2026-05-18</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Bulk</strong></td>
@@ -190,11 +150,11 @@
       <td>£59.99</td>
       <td>78</td>
       <td>23.0g</td>
-      <td>£0.769</td>
+      <td class="pps-cheaper">£0.769</td>
       <td>£3.34</td>
       <td class="na">—</td>
       <td class="diff">£0.33 cheaper/srv</td>
-      <td class="ts">2026-05-18</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Bulk</strong></td>
@@ -203,11 +163,11 @@
       <td>£14.99</td>
       <td>15</td>
       <td>23.0g</td>
-      <td>£0.999</td>
+      <td class="pps-cheaper">£0.999</td>
       <td>£4.34</td>
       <td class="na">—</td>
-      <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">£0.40 cheaper/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Bulk</strong></td>
@@ -216,11 +176,11 @@
       <td>£114.99</td>
       <td>156</td>
       <td>23.0g</td>
-      <td>£0.737</td>
+      <td class="pps-cheaper">£0.737</td>
       <td>£3.20</td>
       <td class="na">—</td>
-      <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">£0.36 cheaper/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Healthspan</strong></td>
@@ -229,11 +189,11 @@
       <td>£33.99</td>
       <td>20</td>
       <td>24.0g</td>
-      <td>£1.700</td>
+      <td class="pps-dearer">£1.700</td>
       <td>£7.08</td>
       <td class="na">—</td>
       <td class="diff">+£0.30 dearer/srv</td>
-      <td class="ts">2026-05-18</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Kinetica</strong></td>
@@ -242,11 +202,11 @@
       <td>£44.99</td>
       <td>33</td>
       <td>23.0g</td>
-      <td>£1.363</td>
+      <td class="pps-dearer">£1.363</td>
       <td>£5.93</td>
       <td class="na">—</td>
       <td class="diff">£0.04 cheaper/srv</td>
-      <td class="ts">2026-05-18</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Kinetica</strong></td>
@@ -255,11 +215,11 @@
       <td>£65.99</td>
       <td>76</td>
       <td>23.0g</td>
-      <td>£0.868</td>
+      <td class="pps-cheaper">£0.868</td>
       <td>£3.78</td>
       <td class="na">—</td>
       <td class="diff">£0.23 cheaper/srv</td>
-      <td class="ts">2026-05-18</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Kinetica</strong></td>
@@ -268,11 +228,11 @@
       <td>£19.99</td>
       <td>10</td>
       <td>23.0g</td>
-      <td class="high">£1.999</td>
+      <td class="pps-dearer">£1.999</td>
       <td>£8.69</td>
       <td class="na">—</td>
-      <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">+£0.60 dearer/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Kinetica</strong></td>
@@ -281,50 +241,50 @@
       <td>£119.99</td>
       <td>150</td>
       <td>23.0g</td>
-      <td>£0.800</td>
+      <td class="pps-cheaper">£0.800</td>
       <td>£3.48</td>
       <td class="na">—</td>
-      <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">£0.30 cheaper/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Myprotein</strong></td>
       <td>Impact Whey Protein</td>
       <td>2.7kg</td>
-      <td>£72.49</td>
+      <td>£77.49</td>
       <td>90</td>
       <td>23.0g</td>
-      <td>£0.805</td>
-      <td>£3.50</td>
+      <td class="pps-cheaper">£0.861</td>
+      <td>£3.74</td>
       <td class="na">—</td>
       <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Myprotein</strong></td>
       <td>Impact Whey Protein</td>
       <td>450g</td>
-      <td>£15.99</td>
+      <td>£16.99</td>
       <td>15</td>
       <td>23.0g</td>
-      <td>£1.066</td>
-      <td>£4.63</td>
+      <td class="pps-dearer">£1.133</td>
+      <td>£4.92</td>
       <td class="na">—</td>
-      <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">£0.27 cheaper/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Myprotein</strong></td>
       <td>Impact Whey Protein</td>
       <td>900g</td>
-      <td>£26.99</td>
+      <td>£27.99</td>
       <td>30</td>
       <td>23.0g</td>
-      <td>£0.900</td>
-      <td>£3.91</td>
+      <td class="pps-cheaper">£0.933</td>
+      <td>£4.06</td>
       <td class="na">—</td>
-      <td class="diff">£0.50 cheaper/srv</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">£0.47 cheaper/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="own">
       <td><strong>Nutrition X</strong></td>
@@ -333,11 +293,11 @@
       <td>£65.99</td>
       <td>60</td>
       <td>24.8g</td>
-      <td>£1.100</td>
+      <td class="pps-you">£1.100</td>
       <td>£4.43</td>
       <td class="na">—</td>
       <td class="diff">≈ same</td>
-      <td class="ts">2026-05-18</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="own">
       <td><strong>Nutrition X</strong></td>
@@ -346,11 +306,11 @@
       <td>£41.99</td>
       <td>30</td>
       <td>24.8g</td>
-      <td>£1.400</td>
+      <td class="pps-you">£1.400</td>
       <td>£5.64</td>
       <td class="na">—</td>
       <td class="diff">≈ same</td>
-      <td class="ts">2026-05-18</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Optimum Nutrition</strong></td>
@@ -359,11 +319,11 @@
       <td>£80.00</td>
       <td>76</td>
       <td>24.0g</td>
-      <td>£1.053</td>
+      <td class="pps-cheaper">£1.053</td>
       <td>£4.39</td>
       <td class="na">—</td>
-      <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">£0.05 cheaper/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Optimum Nutrition</strong></td>
@@ -372,11 +332,11 @@
       <td>£18.50</td>
       <td>10</td>
       <td>24.0g</td>
-      <td class="high">£1.850</td>
+      <td class="pps-dearer">£1.850</td>
       <td>£7.71</td>
       <td class="na">—</td>
-      <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">+£0.45 dearer/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Optimum Nutrition</strong></td>
@@ -385,11 +345,11 @@
       <td>£25.00</td>
       <td>15</td>
       <td>24.0g</td>
-      <td>£1.667</td>
+      <td class="pps-dearer">£1.667</td>
       <td>£6.94</td>
       <td class="na">—</td>
-      <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">+£0.27 dearer/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Optimum Nutrition</strong></td>
@@ -398,11 +358,11 @@
       <td>£30.00</td>
       <td>20</td>
       <td>24.0g</td>
-      <td>£1.500</td>
+      <td class="pps-dearer">£1.500</td>
       <td>£6.25</td>
       <td class="na">—</td>
       <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Optimum Nutrition</strong></td>
@@ -411,11 +371,11 @@
       <td>£40.00</td>
       <td>30</td>
       <td>24.0g</td>
-      <td>£1.333</td>
+      <td class="pps-dearer">£1.333</td>
       <td>£5.56</td>
       <td class="na">—</td>
       <td class="diff">£0.07 cheaper/srv</td>
-      <td class="ts">2026-05-18</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>SIS</strong></td>
@@ -424,11 +384,11 @@
       <td>£60.00</td>
       <td>45</td>
       <td>21.0g</td>
-      <td>£1.333</td>
+      <td class="pps-dearer">£1.333</td>
       <td>£6.35</td>
       <td class="na">—</td>
-      <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">+£0.23 dearer/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>SIS</strong></td>
@@ -437,11 +397,11 @@
       <td>£25.00</td>
       <td>15</td>
       <td>21.0g</td>
-      <td>£1.667</td>
+      <td class="pps-dearer">£1.667</td>
       <td>£7.94</td>
       <td class="na">—</td>
-      <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">+£0.27 dearer/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>Soccer Supplement</strong></td>
@@ -450,63 +410,63 @@
       <td>£41.95</td>
       <td>33</td>
       <td>22.0g</td>
-      <td>£1.271</td>
+      <td class="pps-dearer">£1.271</td>
       <td>£5.78</td>
       <td class="na">—</td>
       <td class="diff">£0.13 cheaper/srv</td>
-      <td class="ts">2026-05-18</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>The Protein Works</strong></td>
       <td>Whey Protein 80</td>
       <td>1kg</td>
-      <td>£14.29</td>
+      <td>£19.19</td>
       <td>33</td>
       <td>22.0g</td>
-      <td>£0.433</td>
-      <td>£1.97</td>
+      <td class="pps-cheaper">£0.582</td>
+      <td>£2.64</td>
       <td class="na">—</td>
-      <td class="diff">£0.97 cheaper/srv</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">£0.82 cheaper/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>The Protein Works</strong></td>
       <td>Whey Protein 80</td>
       <td>2kg</td>
-      <td>£14.29</td>
+      <td>£19.19</td>
       <td>66</td>
       <td>22.0g</td>
-      <td>£0.216</td>
-      <td>£0.98</td>
+      <td class="pps-cheaper">£0.291</td>
+      <td>£1.32</td>
       <td class="na">—</td>
-      <td class="diff">£0.88 cheaper/srv</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">£0.81 cheaper/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>The Protein Works</strong></td>
       <td>Whey Protein 80</td>
       <td>4kg</td>
-      <td>£14.29</td>
+      <td>£19.19</td>
       <td>160</td>
       <td>22.0g</td>
-      <td class="best">£0.089</td>
-      <td>£0.41</td>
+      <td class="pps-cheaper">£0.120</td>
+      <td>£0.55</td>
       <td class="na">—</td>
-      <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">£0.98 cheaper/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>The Protein Works</strong></td>
       <td>Whey Protein 80</td>
       <td>500g</td>
-      <td>£14.29</td>
+      <td>£19.19</td>
       <td>16</td>
       <td>22.0g</td>
-      <td>£0.893</td>
-      <td>£4.06</td>
+      <td class="pps-dearer">£1.199</td>
+      <td>£5.45</td>
       <td class="na">—</td>
-      <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">£0.20 cheaper/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>USN</strong></td>
@@ -515,11 +475,11 @@
       <td>£67.50</td>
       <td>59</td>
       <td>24.0g</td>
-      <td>£1.144</td>
+      <td class="pps-dearer">£1.144</td>
       <td>£4.77</td>
       <td class="na">—</td>
       <td class="diff">+£0.04 dearer/srv</td>
-      <td class="ts">2026-05-18</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>USN</strong></td>
@@ -528,11 +488,11 @@
       <td>£18.00</td>
       <td>14</td>
       <td>24.0g</td>
-      <td>£1.286</td>
+      <td class="pps-dearer">£1.286</td>
       <td>£5.36</td>
       <td class="na">—</td>
-      <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="diff">£0.11 cheaper/srv</td>
+      <td class="ts">2026-05-12</td>
     </tr>
     <tr class="">
       <td><strong>USN</strong></td>
@@ -541,18 +501,68 @@
       <td>£36.00</td>
       <td>27</td>
       <td>24.0g</td>
-      <td>£1.333</td>
+      <td class="pps-dearer">£1.333</td>
       <td>£5.56</td>
       <td class="na">—</td>
       <td class="diff">—</td>
-      <td class="ts">2026-05-18</td>
+      <td class="ts">2026-05-12</td>
     </tr></tbody>
   </table>
 
-  <p class="footer">
-    Whey Tracker · nutritionx.co.uk · Prices are as scraped and may differ from current live prices.
-    Servings marked with * are estimated from bag weight ÷ serving size.
-  </p>
+  <p class="footer">Whey Tracker · nutritionx.co.uk · Prices scraped from brand websites.</p>
 </div>
+
+<script>
+const CHART_DATA = {"labels": ["17 Mar", "24 Mar", "31 Mar", "7 Apr", "14 Apr", "21 Apr", "28 Apr", "5 May"], "brands": ["Applied Nutrition", "Bulk", "Healthspan", "Kinetica", "Myprotein", "Nutrition X", "Optimum Nutrition", "SIS", "Soccer Supplement", "The Protein Works", "USN"], "data": {"Applied Nutrition": [1.09, 1.09, 1.09, 1.09, 1.09, 1.09, 1.09, 1.09], "Bulk": [0.828, 0.828, 0.828, 0.828, 0.828, 0.828, 0.828, 0.828], "Healthspan": [1.7, 1.7, 1.7, 1.7, 1.7, 1.7, 1.7, 1.7], "Kinetica": [1.258, 1.258, 1.258, 1.258, 1.258, 1.258, 1.258, 1.258], "Myprotein": [0.976, 0.976, 0.976, 0.976, 0.976, 0.976, 0.976, 0.976], "Nutrition X": [1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25, 1.25], "Optimum Nutrition": [1.481, 1.481, 1.481, 1.481, 1.481, 1.481, 1.481, 1.481], "SIS": [1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5], "Soccer Supplement": [1.271, 1.271, 1.271, 1.271, 1.271, 1.271, 1.271, 1.271], "The Protein Works": [0.548, 0.548, 0.548, 0.548, 0.548, 0.548, 0.548, 0.548], "USN": [1.254, 1.254, 1.254, 1.254, 1.254, 1.254, 1.254, 1.254]}};
+const COLOURS = {"Nutrition X": "#185FA5", "Myprotein": "#D85A30", "Bulk": "#1D9E75", "Applied Nutrition": "#BA7517", "Optimum Nutrition": "#7F77DD", "Kinetica": "#0F6E56", "USN": "#A32D2D", "The Protein Works": "#639922", "SIS": "#533AB7", "Healthspan": "#854F0B", "Soccer Supplement": "#5F5E5A"};
+
+// Build datasets
+const datasets = CHART_DATA.brands.map(brand => ({
+  label: brand,
+  data: CHART_DATA.data[brand],
+  borderColor: COLOURS[brand] || '#888',
+  backgroundColor: (COLOURS[brand] || '#888') + '22',
+  borderWidth: brand === 'Nutrition X' ? 3 : 1.5,
+  pointRadius: 3,
+  tension: 0.3,
+  hidden: false,
+}));
+
+const chart = new Chart(document.getElementById('weeklyChart'), {
+  type: 'line',
+  data: { labels: CHART_DATA.labels, datasets },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: c => ` ${c.dataset.label}: £${c.parsed.y?.toFixed(3) || 'N/A'}` } }
+    },
+    scales: {
+      x: { ticks: { color: '#888', font: { size: 11 } }, grid: { color: 'rgba(0,0,0,0.05)' } },
+      y: { ticks: { callback: v => '£' + v.toFixed(2), color: '#888', font: { size: 11 } }, grid: { color: 'rgba(0,0,0,0.05)' } }
+    }
+  }
+});
+
+// Brand toggle buttons
+const btnContainer = document.getElementById('brand-btns');
+CHART_DATA.brands.forEach((brand, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'brand-btn active';
+  btn.textContent = brand;
+  btn.style.borderColor = COLOURS[brand] || '#888';
+  btn.style.color = COLOURS[brand] || '#888';
+  btn.style.background = (COLOURS[brand] || '#888') + '15';
+  btn.onclick = () => {
+    const ds = chart.data.datasets[i];
+    ds.hidden = !ds.hidden;
+    btn.classList.toggle('active', !ds.hidden);
+    chart.update();
+  };
+  btnContainer.appendChild(btn);
+});
+</script>
 </body>
 </html>
