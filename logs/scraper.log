@@ -2101,3 +2101,80 @@
 2026-05-18 09:12:16,647 [INFO] Scraping: Soccer Supplement 1kg
 2026-05-18 09:12:17,086 [INFO]   Soccer Supplement 1kg: £41.95 → £1.271/srv
 2026-05-18 09:12:20,166 [INFO] === Scrape complete — 31/31 fetched, 31/31 prices found ===
+2026-05-18 09:15:54,447 [INFO] === Scrape run started — 31 products ===
+2026-05-18 09:15:54,447 [INFO]   11 products will use Playwright (JS-rendered sites)
+2026-05-18 09:15:54,447 [INFO] Scraping: Nutrition X 900g
+2026-05-18 09:15:54,540 [INFO]   Nutrition X 900g: £41.99 → £1.400/srv
+2026-05-18 09:15:57,547 [INFO] Scraping: Nutrition X 1.8kg
+2026-05-18 09:15:57,689 [INFO]   Nutrition X 1.8kg: £65.99 → £1.100/srv
+2026-05-18 09:16:00,697 [INFO] Scraping: Myprotein 450g
+2026-05-18 09:16:00,698 [INFO]   Using Playwright for Myprotein
+2026-05-18 09:16:01,219 [INFO] Playwright browser launched
+2026-05-18 09:16:05,892 [INFO]   Myprotein 450g: £15.99 → £1.066/srv
+2026-05-18 09:16:08,898 [INFO] Scraping: Myprotein 900g
+2026-05-18 09:16:08,899 [INFO]   Using Playwright for Myprotein
+2026-05-18 09:16:14,261 [INFO]   Myprotein 900g: £26.99 → £0.900/srv
+2026-05-18 09:16:17,268 [INFO] Scraping: Myprotein 2.7kg
+2026-05-18 09:16:17,268 [INFO]   Using Playwright for Myprotein
+2026-05-18 09:16:22,106 [INFO]   Myprotein 2.7kg: £72.49 → £0.805/srv
+2026-05-18 09:16:25,113 [INFO] Scraping: Bulk 500g
+2026-05-18 09:16:25,113 [INFO]   Using Playwright for Bulk
+2026-05-18 09:16:29,088 [INFO]   Bulk 500g: £14.99 → £0.999/srv
+2026-05-18 09:16:32,094 [INFO] Scraping: Bulk 1kg
+2026-05-18 09:16:32,095 [INFO]   Using Playwright for Bulk
+2026-05-18 09:16:35,851 [INFO]   Bulk 1kg: £24.99 → £0.806/srv
+2026-05-18 09:16:38,857 [INFO] Scraping: Bulk 2.5kg
+2026-05-18 09:16:38,858 [INFO]   Using Playwright for Bulk
+2026-05-18 09:16:45,772 [INFO]   Bulk 2.5kg: £59.99 → £0.769/srv
+2026-05-18 09:16:48,779 [INFO] Scraping: Bulk 5kg
+2026-05-18 09:16:48,780 [INFO]   Using Playwright for Bulk
+2026-05-18 09:16:52,823 [INFO]   Bulk 5kg: £114.99 → £0.737/srv
+2026-05-18 09:16:55,831 [INFO] Scraping: Applied Nutrition 825g
+2026-05-18 09:16:56,507 [INFO]   Applied Nutrition 825g: £29.95 → £1.198/srv
+2026-05-18 09:16:59,513 [INFO] Scraping: Applied Nutrition 2kg
+2026-05-18 09:17:00,136 [INFO]   Applied Nutrition 2kg: £59.95 → £0.983/srv
+2026-05-18 09:17:03,142 [INFO] Scraping: Optimum Nutrition 300g
+2026-05-18 09:17:04,018 [INFO]   Optimum Nutrition 300g: £18.50 → £1.850/srv
+2026-05-18 09:17:07,025 [INFO] Scraping: Optimum Nutrition 450g
+2026-05-18 09:17:07,946 [INFO]   Optimum Nutrition 450g: £25.00 → £1.667/srv
+2026-05-18 09:17:10,953 [INFO] Scraping: Optimum Nutrition 600g
+2026-05-18 09:17:11,832 [INFO]   Optimum Nutrition 600g: £30.00 → £1.500/srv
+2026-05-18 09:17:14,838 [INFO] Scraping: Optimum Nutrition 900g
+2026-05-18 09:17:15,221 [INFO]   Optimum Nutrition 900g: £40.00 → £1.333/srv
+2026-05-18 09:17:18,228 [INFO] Scraping: Optimum Nutrition 2.28kg
+2026-05-18 09:17:19,019 [INFO]   Optimum Nutrition 2.28kg: £80.00 → £1.053/srv
+2026-05-18 09:17:22,025 [INFO] Scraping: Kinetica 300g
+2026-05-18 09:17:23,584 [INFO]   Kinetica 300g: £19.99 → £1.999/srv
+2026-05-18 09:17:26,592 [INFO] Scraping: Kinetica 1kg
+2026-05-18 09:17:27,352 [INFO]   Kinetica 1kg: £44.99 → £1.363/srv
+2026-05-18 09:17:30,359 [INFO] Scraping: Kinetica 2.27kg
+2026-05-18 09:17:31,014 [INFO]   Kinetica 2.27kg: £65.99 → £0.868/srv
+2026-05-18 09:17:34,020 [INFO] Scraping: Kinetica 4.5kg
+2026-05-18 09:17:35,179 [INFO]   Kinetica 4.5kg: £119.99 → £0.800/srv
+2026-05-18 09:17:38,186 [INFO] Scraping: USN 476g
+2026-05-18 09:17:38,620 [INFO]   USN 476g: £18.00 → £1.286/srv
+2026-05-18 09:17:41,625 [INFO] Scraping: USN 908g
+2026-05-18 09:17:42,079 [INFO]   USN 908g: £36.00 → £1.333/srv
+2026-05-18 09:17:45,086 [INFO] Scraping: USN 2kg
+2026-05-18 09:17:45,575 [INFO]   USN 2kg: £67.50 → £1.144/srv
+2026-05-18 09:17:48,582 [INFO] Scraping: The Protein Works 500g
+2026-05-18 09:17:48,582 [INFO]   Using Playwright for The Protein Works
+2026-05-18 09:17:56,218 [INFO]   The Protein Works 500g: £14.29 → £0.893/srv
+2026-05-18 09:17:59,224 [INFO] Scraping: The Protein Works 1kg
+2026-05-18 09:17:59,225 [INFO]   Using Playwright for The Protein Works
+2026-05-18 09:18:03,854 [INFO]   The Protein Works 1kg: £14.29 → £0.433/srv
+2026-05-18 09:18:06,860 [INFO] Scraping: The Protein Works 2kg
+2026-05-18 09:18:06,861 [INFO]   Using Playwright for The Protein Works
+2026-05-18 09:18:11,517 [INFO]   The Protein Works 2kg: £14.29 → £0.216/srv
+2026-05-18 09:18:14,520 [INFO] Scraping: The Protein Works 4kg
+2026-05-18 09:18:14,521 [INFO]   Using Playwright for The Protein Works
+2026-05-18 09:18:19,234 [INFO]   The Protein Works 4kg: £14.29 → £0.089/srv
+2026-05-18 09:18:22,237 [INFO] Scraping: SIS 450g
+2026-05-18 09:18:22,352 [INFO]   SIS 450g: £25.00 → £1.667/srv
+2026-05-18 09:18:25,357 [INFO] Scraping: SIS 1.35kg
+2026-05-18 09:18:25,452 [INFO]   SIS 1.35kg: £60.00 → £1.333/srv
+2026-05-18 09:18:28,459 [INFO] Scraping: Healthspan 750g
+2026-05-18 09:18:29,042 [INFO]   Healthspan 750g: £33.99 → £1.700/srv
+2026-05-18 09:18:32,048 [INFO] Scraping: Soccer Supplement 1kg
+2026-05-18 09:18:32,455 [INFO]   Soccer Supplement 1kg: £41.95 → £1.271/srv
+2026-05-18 09:18:35,495 [INFO] === Scrape complete — 31/31 fetched, 31/31 prices found ===
