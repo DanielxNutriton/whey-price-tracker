@@ -471,14 +471,20 @@ def parse_soccer_supplement(soup, product):
     """
     Shopify. Diagnostic: JSON-LD=41.95 ✅  .product__price='£41.95' ✅
     Avoid span.money — showed £0.00.
+    CSS selectors first: JSON-LD can include related/other products and return
+    the wrong price when the page is served from a different edge location.
     """
-    price = _json_ld_price(soup)
+    price = None
+    for sel in [".product__price", "[data-product-price]"]:
+        el = soup.select_one(sel)
+        if el:
+            price = _clean_price(el.get_text())
+            if price:
+                break
     if not price:
-        for sel in [".product__price", "[data-product-price]"]:
-            el = soup.select_one(sel)
-            if el:
-                price = _clean_price(el.get_text())
-                if price: break
+        price = _meta_price(soup, prefer="product") or _meta_price(soup, prefer="og")
+    if not price:
+        price = _json_ld_price(soup)
     desc_el = soup.select_one(".product__description")
     return {"price": price, "description": desc_el.get_text(separator=" ", strip=True)[:500] if desc_el else None}
 
