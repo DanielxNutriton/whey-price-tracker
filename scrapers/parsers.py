@@ -4,6 +4,7 @@ scrapers/parsers.py — Rewritten from live diagnostic output, May 2026.
 
 import re
 import json
+import requests
 from bs4 import BeautifulSoup
 
 
@@ -469,24 +470,46 @@ def parse_healthspan(soup, product):
 
 def parse_soccer_supplement(soup, product):
     """
-    Shopify. Diagnostic: JSON-LD=41.95 ✅  .product__price='£41.95' ✅
-    Avoid span.money — showed £0.00.
-    CSS selectors first: JSON-LD can include related/other products and return
-    the wrong price when the page is served from a different edge location.
+    Shopify. Primary: product JSON API (canonical price, unaffected by geo/bot
+    detection that causes the HTML page to return wrong prices on CI runners).
+    Falls back to CSS selector then JSON-LD if the API is unavailable.
     """
     price = None
-    for sel in [".product__price", "[data-product-price]"]:
-        el = soup.select_one(sel)
-        if el:
-            price = _clean_price(el.get_text())
-            if price:
-                break
+    compare_at = None
+
+    # Primary: Shopify product JSON API — returns store's configured price regardless of IP
+    try:
+        url = product.get("url", "")
+        json_url = url.split("?")[0] + ".json"
+        resp = requests.get(json_url, timeout=10, headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+            "Accept": "application/json",
+        })
+        if resp.status_code == 200:
+            variants = resp.json().get("product", {}).get("variants", [])
+            if variants:
+                v = variants[0]
+                price = float(v["price"]) if v.get("price") else None
+                cat = v.get("compare_at_price")
+                compare_at = float(cat) if cat and float(cat) > (price or 0) else None
+    except Exception:
+        pass
+
+    # Fallback: CSS selector
     if not price:
-        price = _meta_price(soup, prefer="product") or _meta_price(soup, prefer="og")
+        for sel in [".product__price", "[data-product-price]"]:
+            el = soup.select_one(sel)
+            if el:
+                price = _clean_price(el.get_text())
+                if price:
+                    break
+
+    # Last resort: JSON-LD
     if not price:
         price = _json_ld_price(soup)
+
     desc_el = soup.select_one(".product__description")
-    return {"price": price, "description": desc_el.get_text(separator=" ", strip=True)[:500] if desc_el else None}
+    return {"price": price, "compare_at_price": compare_at, "description": desc_el.get_text(separator=" ", strip=True)[:500] if desc_el else None}
 
 
 # ── Dispatcher ────────────────────────────────────────────────────────────────
