@@ -1,34 +1,69 @@
-name: Deploy Price Dashboard
- 
+name: Daily Price Scraper & Deploy Dashboard
+
 on:
+  schedule:
+    - cron: '0 8 * * *'   # 08:00 UTC daily (09:00 BST / 08:00 GMT)
   push:
     branches: [main]
   workflow_dispatch:
- 
+
 permissions:
-  contents: read
+  contents: write   # needed to push DB + reports back to repo
   pages: write
   id-token: write
- 
+
 jobs:
-  deploy:
+  scrape-and-deploy:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
- 
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
- 
+
+      - name: Set up Python
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: pip install -r requirements.txt
+
+      - name: Install Playwright browsers
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: playwright install chromium --with-deps
+
+      - name: Run scraper
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: python main.py
+
+      - name: Copy report to docs
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: cp reports/latest.html docs/index.html
+
+      - name: Commit and push results
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          echo "$(date -u +'%Y-%m-%d %H:%M UTC')" > last_run.txt
+          git add data/prices.db reports/ docs/ last_run.txt
+          git commit -m "chore: daily price snapshot $(date +'%Y-%m-%d')" || echo "Nothing to commit"
+          git push
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
- 
+
       - name: Upload to Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs
- 
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
