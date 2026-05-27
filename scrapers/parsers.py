@@ -307,41 +307,40 @@ def parse_usn(soup, product):
 
 def parse_protein_works(soup, product):
     """
-    Magento-based. Diagnostic2 revealed:
-      - Only one size button rendered at a time (button[class*='size'] = '500g')
-      - itemprop=price always shows the currently active size (500g=£19.19)
-      - Size buttons have base64-encoded Magento attribute values
-      - All sizes share one URL — Playwright must click the size button
-
-    Since clicking requires Playwright interaction (not just HTML parsing),
-    and the scraper.py fetch_with_playwright only fetches without clicking,
-    we read whichever size is currently displayed and store it.
-
-    TODO: For accurate per-size pricing, Playwright needs to click each
-    size button before reading. For now, store the displayed price and
-    flag it with the actual size shown on page.
-
-    For daily monitoring, the key signal is WHEN the price changes —
-    the absolute value per size can be manually verified.
+    Next.js/Magento hybrid. scraper.py clicks the correct size button before
+    passing the soup here, so .price-offer always reflects the selected size.
     """
     price = None
 
-    # itemprop=price gives the currently displayed size price
-    el = soup.select_one("[itemprop='price']")
+    # Primary: .price-offer — the displayed sale/current price after size selection
+    el = soup.select_one(".price-offer")
     if el:
-        val = el.get("content") or el.get_text(strip=True)
-        try:
-            p = float(val.replace(",", "").strip())
-            if 5 < p < 300:
-                price = p
-        except (ValueError, TypeError):
-            pass
+        price = _clean_price(el.get_text())
+
+    # Fallback: itemprop=price (may list multiple sizes; take first valid one)
+    if not price:
+        for el in soup.select("[itemprop='price']"):
+            val = el.get("content") or el.get_text(strip=True)
+            try:
+                p = float(str(val).replace(",", "").strip())
+                if 5 < p < 300:
+                    price = p
+                    break
+            except (ValueError, TypeError):
+                pass
 
     if not price:
         price = _json_ld_price(soup) or _meta_price(soup)
 
+    compare_at = None
+    rrp_el = soup.select_one(".price-rrp")
+    if rrp_el:
+        compare_at = _clean_price(rrp_el.get_text())
+        if compare_at and price and compare_at <= price:
+            compare_at = None
+
     desc_el = soup.select_one(".product-description") or soup.select_one(".tab-content")
-    return {"price": price, "description": desc_el.get_text(separator=" ", strip=True)[:500] if desc_el else None}
+    return {"price": price, "compare_at_price": compare_at, "description": desc_el.get_text(separator=" ", strip=True)[:500] if desc_el else None}
 
 
 def parse_sis(soup, product):

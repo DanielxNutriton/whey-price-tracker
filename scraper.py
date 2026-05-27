@@ -138,14 +138,62 @@ def fetch_with_playwright(url: str) -> BeautifulSoup | None:
     return None
 
 
+def fetch_protein_works(url: str, size: str) -> BeautifulSoup | None:
+    """Playwright fetch for Protein Works — dismisses cookie banner, clicks size button."""
+    for attempt in range(1, SETTINGS["max_retries"] + 1):
+        try:
+            page = _get_playwright_page()
+            if not page:
+                return None
+            resp = page.goto(url, wait_until="networkidle", timeout=30000)
+            if not resp or resp.status >= 400:
+                log.warning(f"  Protein Works attempt {attempt}: HTTP {resp.status if resp else 'N/A'}")
+                page.context.close()
+                if attempt < SETTINGS["max_retries"]:
+                    time.sleep(SETTINGS["request_delay_seconds"] * attempt)
+                continue
+            page.wait_for_timeout(2000)
+
+            # Dismiss cookie consent banner
+            try:
+                page.click("#onetrust-accept-btn-handler", timeout=3000)
+                page.wait_for_timeout(500)
+            except Exception:
+                try:
+                    page.evaluate("const el = document.getElementById('onetrust-consent-sdk'); if(el) el.remove();")
+                except Exception:
+                    pass
+
+            # Click the size button
+            try:
+                page.locator("button").filter(has_text=size).first.click(timeout=5000)
+                page.wait_for_timeout(1000)
+            except Exception as e:
+                log.warning(f"  Protein Works size click failed for {size}: {e}")
+
+            html = page.content()
+            page.context.close()
+            return BeautifulSoup(html, "html.parser")
+        except Exception as exc:
+            log.warning(f"  Protein Works attempt {attempt}/{SETTINGS['max_retries']}: {exc}")
+            if attempt < SETTINGS["max_retries"]:
+                time.sleep(SETTINGS["request_delay_seconds"] * attempt)
+    return None
+
+
 def fetch_page(product: dict) -> BeautifulSoup | None:
     """Route to the right fetcher based on brand."""
     brand = product["brand"]
     url = product["url"]
-    if brand in PLAYWRIGHT_BRANDS:
+    if brand == "The Protein Works":
+        log.info(f"  Using Playwright + size click for {brand} {product['size']}")
+        soup = fetch_protein_works(url, product["size"])
+        if soup is None:
+            log.warning(f"  Protein Works fetch failed, falling back to requests")
+            soup = fetch_with_requests(url)
+    elif brand in PLAYWRIGHT_BRANDS:
         log.info(f"  Using Playwright for {brand}")
         soup = fetch_with_playwright(url)
-        # If Playwright fails, try requests as fallback
         if soup is None:
             log.warning(f"  Playwright failed, falling back to requests for {brand}")
             soup = fetch_with_requests(url)
