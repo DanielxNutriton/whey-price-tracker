@@ -175,26 +175,53 @@ def parse_myprotein(soup, product):
 
 def parse_bulk(soup, product):
     """
-    JS-rendered. Diagnostic: JSON-LD has all variant prices.
-    Match closest to the verified config price for this size.
+    JS-rendered. JSON-LD has all variant prices plus priceSpecification.ListPrice
+    (the original/RRP "was" price) for each offer — use that for compare_at.
     """
     target_price = product.get("price")
-    all_prices = _json_ld_all_prices(soup)
     price = None
-    if all_prices and target_price:
-        closest = min(all_prices, key=lambda p: abs(p - target_price))
-        if abs(closest - target_price) < 15:
-            price = closest
-    if not price and all_prices:
-        price = min(all_prices)  # fallback: cheapest = smallest size
+    compare_at = None
+
+    # Build (current_price, list_price) pairs from JSON-LD offers
+    offers = []
+    for script in soup.find_all("script", {"type": "application/ld+json"}):
+        try:
+            data = json.loads(script.string or "")
+            nodes = data.get("@graph", [data])
+            for node in nodes:
+                for offer in node.get("offers", []):
+                    p = offer.get("price")
+                    list_p = offer.get("priceSpecification", {}).get("price")
+                    if p:
+                        try:
+                            offers.append((float(p), float(list_p) if list_p else None))
+                        except (ValueError, TypeError):
+                            pass
+        except Exception:
+            pass
+
+    if offers and target_price:
+        closest_offer = min(offers, key=lambda o: abs(o[0] - target_price))
+        if abs(closest_offer[0] - target_price) < 15:
+            price = closest_offer[0]
+            list_price = closest_offer[1]
+            if list_price and list_price > price:
+                compare_at = list_price
+
+    if not price:
+        all_prices = [o[0] for o in offers]
+        if all_prices:
+            price = min(all_prices)
     if not price:
         for sel in [".price--current", "[data-price]", ".pdp-price"]:
             el = soup.select_one(sel)
             if el:
                 price = _clean_price(el.get("data-price") or el.get_text())
-                if price: break
+                if price:
+                    break
+
     desc_el = soup.select_one(".product-description")
-    return {"price": price, "description": desc_el.get_text(separator=" ", strip=True)[:500] if desc_el else None}
+    return {"price": price, "compare_at_price": compare_at, "description": desc_el.get_text(separator=" ", strip=True)[:500] if desc_el else None}
 
 
 def parse_applied_nutrition(soup, product):
