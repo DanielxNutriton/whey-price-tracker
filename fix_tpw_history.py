@@ -5,6 +5,11 @@ On 2026-05-26 the size-button click wasn't working, so all 4 sizes were
 scraped as £14.29 (the default page price). The correct prices at that time
 are taken from the verified May 27 targeted test run.
 
+On 2026-05-29 the same button-selector bug recurred (querySelector only matched
+<button> elements; TPW renders 1kg/2kg/4kg as non-button elements). The 08:14
+scheduled run succeeded and confirmed 4kg had genuinely risen to £79.79. Two
+further broken runs at 11:27 and 13:13 recorded £13.29 for all sizes.
+
 Run once locally after pulling the latest DB from GitHub, then push the result.
 """
 
@@ -23,10 +28,19 @@ BAD_SNAPSHOT_IDS = {
     1273: {"size": "1kg",  "price": 25.29, "servings": 33,  "protein_per_serving_g": 22},
     1274: {"size": "2kg",  "price": 41.79, "servings": 66,  "protein_per_serving_g": 22},
     1275: {"size": "4kg",  "price": 71.99, "servings": 160, "protein_per_serving_g": 22},
+    # May 29 11:27 run (same bug — correct prices taken from 08:14 good run same day)
+    1335: {"size": "1kg",  "price": 25.29, "servings": 33,  "protein_per_serving_g": 22},
+    1336: {"size": "2kg",  "price": 41.79, "servings": 66,  "protein_per_serving_g": 22},
+    1337: {"size": "4kg",  "price": 79.79, "servings": 160, "protein_per_serving_g": 22},
+    # May 29 13:13 run (same bug)
+    1366: {"size": "1kg",  "price": 25.29, "servings": 33,  "protein_per_serving_g": 22},
+    1367: {"size": "2kg",  "price": 41.79, "servings": 66,  "protein_per_serving_g": 22},
+    1368: {"size": "4kg",  "price": 79.79, "servings": 160, "protein_per_serving_g": 22},
 }
 
 # False price-drop alerts logged when the bad snapshots compared against correct prior prices
-FALSE_CHANGE_IDS = [78, 79, 80]
+# Note: change id=81 (4kg £71.99 → £79.79) is a genuine price increase — do NOT remove it.
+FALSE_CHANGE_IDS = [78, 79, 80, 82, 83, 84]
 
 
 def fix():
