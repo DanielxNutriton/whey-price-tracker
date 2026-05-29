@@ -179,15 +179,41 @@ def fetch_protein_works(url: str, size: str) -> BeautifulSoup | None:
             """)
             page.wait_for_timeout(300)
 
-            # Click the size button — force=True bypasses any residual overlay interception
+            # Read the price before clicking so we can confirm it changed.
             try:
-                btn = page.locator("button").filter(has_text=size).first
-                btn.scroll_into_view_if_needed(timeout=3000)
-                btn.click(force=True, timeout=5000)
-            except Exception as e:
-                log.warning(f"  Protein Works size click failed for {size}: {e}")
+                initial_price_text = page.locator(".price-offer").inner_text(timeout=3000)
+            except Exception:
+                initial_price_text = None
 
-            page.wait_for_timeout(1500)
+            # Use JS dispatchEvent — fully bypasses any overlay interception that
+            # defeats force=True on Linux/GitHub Actions.
+            try:
+                clicked = page.evaluate(f"""(() => {{
+                    const size = {repr(size)};
+                    const btn = Array.from(document.querySelectorAll(
+                        'button, a, li, label, [role="button"], [role="radio"], [role="option"]'
+                    )).find(b => b.textContent.trim() === size ||
+                                 b.textContent.trim().includes(size));
+                    if (!btn) return false;
+                    btn.dispatchEvent(new MouseEvent('click', {{bubbles: true, cancelable: true}}));
+                    return true;
+                }})()""")
+                if not clicked:
+                    log.warning(f"  Protein Works: no button found for size '{size}', page may show default price")
+            except Exception as e:
+                log.warning(f"  Protein Works JS click failed for {size}: {e}")
+
+            # Wait for the price element to actually update rather than sleeping blind.
+            if initial_price_text:
+                try:
+                    page.wait_for_function(
+                        f"document.querySelector('.price-offer')?.innerText !== {repr(initial_price_text)}",
+                        timeout=6000,
+                    )
+                except Exception:
+                    page.wait_for_timeout(2000)
+            else:
+                page.wait_for_timeout(2000)
 
             html = page.content()
             page.context.close()
