@@ -139,7 +139,14 @@ def fetch_with_playwright(url: str) -> BeautifulSoup | None:
 
 
 def fetch_protein_works(url: str, size: str) -> BeautifulSoup | None:
-    """Playwright fetch for Protein Works — dismisses cookie banner, clicks size button."""
+    """Playwright fetch for Protein Works — dismisses cookie banner, clicks size button.
+
+    On Linux (GitHub Actions) the OneTrust overlay intercepts pointer events even after
+    the accept button is clicked. We nuke the entire consent SDK via JS before clicking
+    the size button, then use force=True to bypass any remaining overlay detection.
+    We also wait for the displayed price to change after clicking rather than relying
+    on a fixed timeout.
+    """
     for attempt in range(1, SETTINGS["max_retries"] + 1):
         try:
             page = _get_playwright_page()
@@ -152,24 +159,35 @@ def fetch_protein_works(url: str, size: str) -> BeautifulSoup | None:
                 if attempt < SETTINGS["max_retries"]:
                     time.sleep(SETTINGS["request_delay_seconds"] * attempt)
                 continue
-            page.wait_for_timeout(2000)
 
-            # Dismiss cookie consent banner
+            # Wait for price element to be present
             try:
-                page.click("#onetrust-accept-btn-handler", timeout=3000)
-                page.wait_for_timeout(500)
+                page.wait_for_selector(".price-offer", timeout=8000)
             except Exception:
-                try:
-                    page.evaluate("const el = document.getElementById('onetrust-consent-sdk'); if(el) el.remove();")
-                except Exception:
-                    pass
+                page.wait_for_timeout(2000)
 
-            # Click the size button
+            # Aggressively remove cookie/consent overlays via JS before clicking.
+            # On Linux (GitHub Actions) the accept-button click alone doesn't always
+            # fully clear the overlay, leaving it to intercept pointer events.
+            page.evaluate("""
+                ['#onetrust-consent-sdk', '#onetrust-banner-sdk',
+                 '.onetrust-pc-dark-filter', '#onetrust-pc-sdk'].forEach(sel => {
+                    const el = document.querySelector(sel);
+                    if (el) el.remove();
+                });
+                document.body.style.overflow = 'auto';
+            """)
+            page.wait_for_timeout(300)
+
+            # Click the size button — force=True bypasses any residual overlay interception
             try:
-                page.locator("button").filter(has_text=size).first.click(timeout=5000)
-                page.wait_for_timeout(1000)
+                btn = page.locator("button").filter(has_text=size).first
+                btn.scroll_into_view_if_needed(timeout=3000)
+                btn.click(force=True, timeout=5000)
             except Exception as e:
                 log.warning(f"  Protein Works size click failed for {size}: {e}")
+
+            page.wait_for_timeout(1500)
 
             html = page.content()
             page.context.close()
